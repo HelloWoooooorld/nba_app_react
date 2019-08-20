@@ -20,7 +20,7 @@ class Layout extends Component {
             <div>
                 <Header
                     showNav={this.state.showNav}
-                    onHideNav={() => this. toogleSidenav(false)}
+                    onHideNav={() => this.toogleSidenav(false)}
                     onOpenNav={() => this.toogleSidenav(true)}
                 />
                 {this.props.children}
