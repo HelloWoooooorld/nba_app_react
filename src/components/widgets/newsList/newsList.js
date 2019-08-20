@@ -88,7 +88,7 @@ class NewsList extends Component {
     }
 
     render() {
-        console.log(this.state.teams);
+  
         return (
             <div>
                 <TransitionGroup
