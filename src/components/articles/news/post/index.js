@@ -4,7 +4,7 @@ import { URL } from '../../../../config';
 
 import style from '../../../articles/articles.css'
 import Header from './header';
-import Body from './body';
+
 
 class NewsArticle extends Component {
     state = {
@@ -33,7 +33,19 @@ class NewsArticle extends Component {
                 author={article.author}
                 date={article.date} 
                 teamData={team[0]}/>
-                <Body/>
+                <div className={style.body}>
+                    <h1>{article.title}</h1>
+                    <div className={style.articleImage}
+                         style={{
+                             background: `url('/images/articles/${article.image}')`
+                         }}
+                    >
+
+                    </div>
+                        <div className={style.articleText}>
+                            {article.body}
+                        </div>
+                </div>
                 
             </div>
         );

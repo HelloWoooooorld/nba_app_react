@@ -3,15 +3,16 @@
     border-bottom: 0px;
     background: #fff;
     margin: 5px 5px 0  5px;
+    padding: 10px 10px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .left{
-    width: 57px;
-    height: 50px;
-    background-size: 85% !important;
+    width: 60px;
+    height: 56px;
+    background-size: 90% !important;
     background-position: center center !important;
     background-repeat: no-repeat;
 }
@@ -19,7 +20,7 @@
 .rigth{
     flex-grow: 1;
     padding-left: 10px;
-    font-size: 10px;
+    font-size: 15px;
     font-weight: 300;
 }
 
@@ -27,7 +28,7 @@
     border: 1px solid #c5c5c5;
     border-bottom: 0px;
     background: #fff;
-    margin: 5px 5px 0  5px;
+    margin: 0px 5px 0  5px;
     padding: 10px;
     font-size: 13px;
     font-weight: 300;
@@ -37,4 +38,53 @@
 .articlePostData span{
 font-weight: 500;
 
+}
+
+.body{
+    background-color: #fff;
+    padding: 10px;
+    margin: 0px 5px;
+    border: 1px solid #c5c5c5;
+}
+
+.body h1{
+    font-size: 25px;
+    margin: 15px 0px;
+    font-weight: 400;
+    color: #4d4d4d;
+
+}
+
+.articleImage{
+    background-size: cover !important;
+    width: 100%;
+    height: 200px;
+    background-position: center center !important;
+    background-repeat: no-repeat;
+}
+
+.articleText{
+    font-weight: 300;
+    color: #666666;
+    line-height: 23px;
+    margin: 15px 0px;
+}
+
+.videoWrapper {
+    background-color: #fff;
+    margin: 0px 5px;
+    border: 1px solid #c5c5c5;
+}
+
+.videoWrapper h1{
+    font-size: 25px;
+    font-weight: 400;
+    color: #4d4d4d;
+    margin: 15px 0px;
+    padding: 0px 10px;
+}
+
+.videoWrapper iframe{
+    border: 0;
+    
 }

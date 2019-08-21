@@ -10,16 +10,21 @@ import Layout from './hoc/layout'
 
 import NewsArticle from './components/articles/news/post/index';
 
+import VideoArticles from './components/articles/videos/video/videoArticles';
+
+import NewsMain from './components/articles/news/main/index'
 
 class Routes extends Component {
-
+    
 
     render() {
         return (
             <Layout>
                 <Switch>
                     <Route path="/" exact component={Home} />
+                    <Route path="/news" exact component={NewsMain}/>
                     <Route path="/articles/:id" exact component={NewsArticle} />
+                    <Route path="/videos/:id" exact component={VideoArticles} />
                 </Switch>
             </Layout>
         );
