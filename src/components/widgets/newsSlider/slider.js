@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {fireBaseArticles, firebaseLooper} from '../../../firebase';
+import {fireBaseArticles, fireBaseLooper} from '../../../firebase';
 
 import SliderTemplates from './slider_templates';
 
@@ -16,7 +16,7 @@ class NewsSlider extends Component {
     componentWillMount(){
         fireBaseArticles.limitToFirst(3).once('value')
         .then((snapshot) => {
-            const news = firebaseLooper(snapshot)
+            const news = fireBaseLooper(snapshot)
                 this.setState({
                     news
                 })
