@@ -14,6 +14,9 @@ import VideoArticles from './components/articles/videos/video/videoArticles';
 
 import NewsMain from './components/articles/news/main/index'
 
+
+import SignIn from './components/SignIn/sign_in';
+
 class Routes extends Component {
     
 
@@ -25,6 +28,7 @@ class Routes extends Component {
                     <Route path="/news" exact component={NewsMain}/>
                     <Route path="/articles/:id" exact component={NewsArticle} />
                     <Route path="/videos/:id" exact component={VideoArticles} />
+                    <Route path="/sign-in" exact component={SignIn} />
                 </Switch>
             </Layout>
         );

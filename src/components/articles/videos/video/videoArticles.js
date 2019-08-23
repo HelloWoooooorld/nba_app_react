@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-import axios from 'axios';
+import {fireBaseLooper,fireBaseDB,fireBaseTeams, fireBaseVideos} from '../../../../firebase';
+
 import style from '../../articles.css'
-import {URL} from '../../../../config';
+
 import Header from './header';
 import VideoRelated from '../../../widgets/VideoList/videoRelated/videoRelated'
 
@@ -15,33 +16,40 @@ class VideoArticles extends Component {
     }
 
     componentWillMount() {
-        axios.get(`${URL}/videos?id=${this.props.match.params.id}`)
-            .then(response => {
-                let article = response.data[0];
-
-                axios.get(`${URL}/teams?id=${article.team}`)
-                    .then(response => {
-                        this.setState({
-                            article,
-                            team: response.data
-                        })
-                        this.getRelated()
-                    })
-            })
-    }
-
-    getRelated =() => {
-        axios.get(`${URL}/teams`)
-        .then(response => {
-            let teams = response.data;
-            axios.get(`${URL}/videos?q=${this.state.team[0].city}&_limit=3`)
-            .then(response => {
+        fireBaseDB.ref(`videos/${this.props.match.params.id}`).once('value')
+        .then((snapshot) => {
+            let article = snapshot.val();
+            fireBaseTeams.orderByChild('teamId').equalTo(article.team).once('value')
+            .then((snapshot) => {
+                const team = fireBaseLooper(snapshot)
                 this.setState({
-                    teams,
-                    related: response.data
+                    article,
+                    team
                 })
             })
         })
+    }
+
+    getRelated =() => {
+        fireBaseTeams.once('value')
+        .then((snapshot) => {
+            const teams = fireBaseLooper(snapshot);
+            fireBaseVideos
+            .orderByChild("team")
+            .equalTo(this.state.article.team)
+            .limitToFirst(3)
+            .once('value')
+            .then((snapshot) => {
+                const related = fireBaseLooper(snapshot)
+                this.setState({
+               
+                    teams,
+                    related
+                })
+            })
+        })
+        
+    
     }
 
     render() {

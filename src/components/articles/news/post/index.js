@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { URL } from '../../../../config';
+
+import {fireBaseDB, fireBaseLooper, fireBaseTeams} from '../../../../firebase';
 
 import style from '../../../articles/articles.css'
 import Header from './header';
@@ -12,18 +12,18 @@ class NewsArticle extends Component {
         team: []
     }
     componentWillMount() {
-        axios.get(`${URL}/articles?id=${this.props.match.params.id}`)
-            .then(response => {
-                let article = response.data[0];
-
-                axios.get(`${URL}/teams?id=${article.team}`)
-                    .then(response => {
-                        this.setState({
-                            article,
-                            team: response.data
-                        })
-                    })
+        fireBaseDB.ref(`articles/${this.props.match.params.id}`).once('value')
+        .then((snapshot) => {
+            let article = snapshot.val();
+            fireBaseTeams.orderByChild('teamId').equalTo(article.team).once('value')
+            .then((snapshot) => {
+                const team = fireBaseLooper(snapshot)
+                this.setState({
+                    article,
+                    team
+                })
             })
+        })
     }
     render() {
         const { article, team } = this.state;

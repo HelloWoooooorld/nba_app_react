@@ -36,12 +36,7 @@ class NewsList extends Component {
             })
 
 
-            // axios.get(`${URL}/teams`)
-            // .then( response => {
-            //     this.setState({
-            //         teams:response.data
-            //     })
-            // })
+
         }
 
         fireBaseArticles.orderByChild('id').startAt(start).endAt(end).once('value')
@@ -57,14 +52,6 @@ class NewsList extends Component {
             console.log(e)
         })
 
-        // axios.get(`${URL}/articles?_start=${start}&_end=${end}`)
-        // .then( response => {
-        //     this.setState({
-        //         items:[...this.state.items,...response.data],
-        //         start,
-        //         end
-        //     })
-        // })
     }
 
     loadMore = () => {

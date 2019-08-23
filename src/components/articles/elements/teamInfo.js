@@ -1,6 +1,8 @@
 import React from 'react';
 import style from '../articles.css'
 
+
+
 const TeamInfo = (props) => (
   <div className={style.articleTeamHeader}>
       <div className={style.left}
