@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {firebase} from '../../firebase';
 
 import FormFields from '../widgets/FormFields/form_fields'
 import style from '../SignIn/sign_in.css'
@@ -94,21 +95,71 @@ class SignIn extends Component {
         return error
     }
 
-    submitButton = () => {
-        this.state.loading ? 
-            'loading ...'
-        :
-        <div>
-            <button>Register now</button>
-            <button>Log in </button>
-        </div>
+    submitForm = (event , type) => {
+        event.preventDefault();
+        if(type !== null) {
 
+            let dataToSubmit = {}
+            let formIsValid =true;
+
+            for(let key in this.state.formData){
+                dataToSubmit[key] = this.state.formData[key].value
+            }
+            for(let key in this.state.formData){
+                formIsValid = this.state.formData[key].valid && formIsValid
+            }
+            if(formIsValid){
+                this.setState({
+                    loading: true,
+                    registerError: '',
+                })
+                if(type){
+                    firebase.auth()
+                    .signInWithEmailAndPassword(
+                        dataToSubmit.email,
+                        dataToSubmit.password
+                    ).then(() => {
+                        this.props.history.push('/')
+                    }).catch(err => {
+                        this.setState({
+                            loading: false,
+                            registerError: err.message,
+                        })
+                    }) 
+                }else{
+                    firebase.auth()
+                    .createUserWithEmailAndPassword(
+                        dataToSubmit.email,
+                        dataToSubmit.password
+                    ).then(() => {
+                        this.props.history.push('/')
+                    }).catch(err => {
+                        this.setState({
+                            loading: false,
+                            registerError: err.message,
+                        })
+                    })
+                    
+                }
+            }
+        }
     }
+
+    submitButton = () => (
+        this.state.loading ? 
+            'load ...'   
+          :
+            <div>
+                <button onClick={(event) => this.submitForm(event,false)}>Register now</button>
+                <button  onClick={(event) => this.submitForm(event,true)}>Sign In</button>
+            </div>
+
+    )
 
     render() {
         return (
             <div className={style.logContainer}>
-                <form>
+                <form onSubmit={(event) => this.submitForm(event,null)}>
                     <h2>Register / Log In</h2>
                     <FormFields
                         id={'email'}
