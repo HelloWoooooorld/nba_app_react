@@ -145,6 +145,12 @@ class SignIn extends Component {
         }
     }
 
+    showError = () => (
+        this.state.registerError !==  '' ?
+            <div className={style.error}>{this.state.registerError}</div>
+        : ''
+    )
+
     submitButton = () => (
         this.state.loading ? 
             'load ...'   
@@ -174,6 +180,7 @@ class SignIn extends Component {
                     />
                     
                     {this.submitButton()}
+                    {this.showError()}
                 </form>
             </div>
         );

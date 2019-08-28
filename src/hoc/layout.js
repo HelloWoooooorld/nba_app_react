@@ -15,10 +15,12 @@ class Layout extends Component {
     }
 
     render() {
+        console.log(this.props,"barara")
       
         return (
             <div>
                 <Header
+                    user={this.props.user}
                     showNav={this.state.showNav}
                     onHideNav={() => this.toogleSidenav(false)}
                     onOpenNav={() => this.toogleSidenav(true)}
