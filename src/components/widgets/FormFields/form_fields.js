@@ -6,18 +6,20 @@ const FormFields = ({formData,change,id}) => {
 
     const showError = () => {
         let errorMessage = null;
+
         if(formData.validation && !formData.valid){
             errorMessage = (
-                <div className={style.error}>
+                <div className={style.labelError}>
                     {formData.validationMessage}
                 </div>
             )
         }
 
-        return errorMessage
+        return errorMessage;
     }
 
-    const renderTemplate = ( ) => {
+
+    const renderTemplate = () => {
         let formTemplate = null;
 
         switch(formData.element){
@@ -43,12 +45,9 @@ const FormFields = ({formData,change,id}) => {
                             onBlur={(event) => change({event,id,blur:true})}
                             onChange={(event) => change({event,id,blur:false})}
                         >
-                            { formData.config.option.map((item,i)=>(
+                            { formData.config.options.map((item,i)=>(
                                 <option key={i} value={item.id}>{item.name}</option>
                             ))}
-
-                           
-
                         </select>
                     </div>
                 )
@@ -57,16 +56,13 @@ const FormFields = ({formData,change,id}) => {
                 formTemplate = null;
         }
         return formTemplate;
-
-
-
     }
 
-    return (
+    return(
         <div>
             {renderTemplate()}
         </div>
-    );
+    )
 };
 
 export default FormFields;

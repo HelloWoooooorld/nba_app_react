@@ -14,7 +14,7 @@ class NewsSlider extends Component {
     }
 
     componentWillMount(){
-        fireBaseArticles.limitToFirst(3).once('value')
+        fireBaseArticles.limitToFirst(10).once('value')
         .then((snapshot) => {
             const news = fireBaseLooper(snapshot)
                 this.setState({
@@ -22,13 +22,7 @@ class NewsSlider extends Component {
                 })
            
         })
-        // axios.get(`${URL}/articles?_start=${this.props.start}&_end=${this.props.end}`)
-        // .then( response => {
-        //     this.setState({
-        //         news:response.data 
-        //     })
-         
-        // })
+
 
     }
 

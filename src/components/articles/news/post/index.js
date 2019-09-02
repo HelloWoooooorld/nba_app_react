@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {fireBaseDB, fireBaseLooper, fireBaseTeams} from '../../../../firebase';
+import { firebase, fireBaseDB, fireBaseLooper, fireBaseTeams} from '../../../../firebase';
 
 import style from '../../../articles/articles.css'
 import Header from './header';
@@ -9,7 +9,8 @@ import Header from './header';
 class NewsArticle extends Component {
     state = {
         article: [],
-        team: []
+        team: [],
+        imageURL: ''
     }
     componentWillMount() {
         fireBaseDB.ref(`articles/${this.props.match.params.id}`).once('value')
@@ -17,11 +18,24 @@ class NewsArticle extends Component {
             let article = snapshot.val();
             fireBaseTeams.orderByChild('teamId').equalTo(article.team).once('value')
             .then((snapshot) => {
+
+
                 const team = fireBaseLooper(snapshot)
                 this.setState({
                     article,
                     team
                 })
+                this.getImageURL(article.image)
+            })
+        })
+    }
+
+    getImageURL = (filename) => {
+        firebase.storage().ref('images')
+        .child(filename).getDownloadURL()
+        .then(url => {
+            this.setState({
+                imageURL: url
             })
         })
     }
@@ -37,13 +51,17 @@ class NewsArticle extends Component {
                     <h1>{article.title}</h1>
                     <div className={style.articleImage}
                          style={{
-                             background: `url('/images/articles/${article.image}')`
+                             background: `url('${this.state.imageURL}')`
                          }}
                     >
 
                     </div>
-                        <div className={style.articleText}>
-                            {article.body}
+                        <div className={style.articleText}
+                            dangerouslySetInnerHTML={{
+                                __html: article.body
+                            }}
+                        >
+                            
                         </div>
                 </div>
                 

@@ -51,7 +51,7 @@ class Uploader extends Component {
         return(
             <div>
                 
-                 <FileUploader
+                <FileUploader
                     accept="image/*"
                     name="image"
                     randomizeFilename
@@ -77,5 +77,7 @@ class Uploader extends Component {
     }
 
 }
+
+
 
 export default Uploader;
