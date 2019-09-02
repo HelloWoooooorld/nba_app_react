@@ -14,8 +14,9 @@ import VideoArticles from './components/articles/videos/video/videoArticles';
 
 import NewsMain from './components/articles/news/main/index'
 
-
 import SignIn from './components/SignIn/sign_in';
+
+import Dashboard from './components/dashboard/dashboard';
 
 const Routes = (props) => {
     return (
@@ -26,6 +27,7 @@ const Routes = (props) => {
                 <Route path="/articles/:id" exact component={NewsArticle} />
                 <Route path="/videos/:id" exact component={VideoArticles} />
                 <Route path="/sign-in" exact component={SignIn} />
+                <Route path="/dashboard" exact component={Dashboard} />
             </Switch>
         </Layout>
     );
