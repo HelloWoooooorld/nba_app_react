@@ -4,7 +4,7 @@ import style from '../dashboard/dashboard.css';
 import { fireBaseTeams, fireBaseArticles, firebase } from '../../firebase';
 
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
+import { EditorState } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 
 import Uploader from '../widgets/fileUploader/fileUploader';
@@ -211,7 +211,7 @@ class Dashboard extends Component {
     onEditorStateChange = (editorState) => {
 
         let contentState = editorState.getCurrentContent();
-        let rawState = convertToRaw(contentState)
+   
 
         let html = stateToHTML(contentState)
 

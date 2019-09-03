@@ -19,20 +19,15 @@ class NewsSlider extends Component {
             const news = fireBaseLooper(snapshot)
                 this.setState({
                     news
-                })
-           
+            }) 
         })
-
-
     }
 
     render(){
-
         return(
             <SliderTemplates data={this.state.news} type={this.props.type} settings={this.props.settings} />
         )
     }
-
 }
 
 export default NewsSlider;

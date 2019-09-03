@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { Link } from 'react-router-dom';
 
-import {fireBaseArticles,fireBaseLooper,fireBaseTeams} from '../../../firebase';
+import { fireBaseArticles, fireBaseLooper, fireBaseTeams } from '../../../firebase';
 
 import style from './newsList.css'
 
@@ -25,32 +25,32 @@ class NewsList extends Component {
         this.request(this.state.start, this.state.end)
     }
 
-    request = (start,end) => {
-        if(this.state.teams.length < 1){
+    request = (start, end) => {
+        if (this.state.teams.length < 1) {
             fireBaseTeams.once('value')
-            .then((snapshot)=>{
-                const teams = fireBaseLooper(snapshot);
-                this.setState({
-                    teams
+                .then((snapshot) => {
+                    const teams = fireBaseLooper(snapshot);
+                    this.setState({
+                        teams
+                    })
                 })
-            })
 
 
 
         }
 
         fireBaseArticles.orderByChild('id').startAt(start).endAt(end).once('value')
-        .then((snapshot)=>{
-            const articles = fireBaseLooper(snapshot);
-            this.setState({
-                items:[...this.state.items,...articles],
-                start,
-                end
+            .then((snapshot) => {
+                const articles = fireBaseLooper(snapshot);
+                this.setState({
+                    items: [...this.state.items, ...articles],
+                    start,
+                    end
+                })
             })
-        })
-        .catch(e=>{
-            console.log(e)
-        })
+            .catch(e => {
+                console.log(e)
+            })
 
     }
 
@@ -67,21 +67,21 @@ class NewsList extends Component {
                 template = this.state.items.map((item, i) => {
                     return (
                         <CSSTransition
-                        classNames={{
-                            enter: style.newsList_wrapper,
-                            active: style.newsList_wrapper_enter,
+                            classNames={{
+                                enter: style.newsList_wrapper,
+                                active: style.newsList_wrapper_enter,
 
-                        }} 
+                            }}
                             timeout={500}
                             key={i}
                         >
                             <div>
                                 <div className={style.newsList_item}>
                                     <Link to={`/articles/${item.id}`}>
-                                        <CardInfo 
-                                        teams={this.state.teams} 
-                                        team={item.team} 
-                                        date={item.date}
+                                        <CardInfo
+                                            teams={this.state.teams}
+                                            team={item.team}
+                                            date={item.date}
                                         />
                                         <h2>{item.title}</h2>
                                     </Link>
@@ -91,35 +91,35 @@ class NewsList extends Component {
                     )
                 })
                 break;
-                case('cardMain'):
+            case ('cardMain'):
                 template = this.state.items.map((item, i) => {
                     return (
                         <CSSTransition
-                        classNames={{
-                            enter: style.newsList_wrapper,
-                            active: style.newsList_wrapper_enter,
+                            classNames={{
+                                enter: style.newsList_wrapper,
+                                active: style.newsList_wrapper_enter,
 
-                        }} 
+                            }}
                             timeout={500}
                             key={i}
                         >
                             <div>
                                 <div className={style.newsList_item}>
                                     <Link to={`/articles/${item.id}`}>
-                                        <CardInfo 
-                                        teams={this.state.teams} 
-                                        team={item.teamId} 
-                                        date={item.date}
+                                        <CardInfo
+                                            teams={this.state.teams}
+                                            team={item.teamId}
+                                            date={item.date}
                                         />
                                         <h2>{item.title}</h2>
                                     </Link>
                                 </div>
                             </div>
-                            
+
                         </CSSTransition>
                     )
                 })
-                    break;
+                break;
 
             default:
                 template = null
@@ -128,7 +128,7 @@ class NewsList extends Component {
     }
 
     render() {
-        console.log(this.state)
+
         return (
             <div>
                 <TransitionGroup
